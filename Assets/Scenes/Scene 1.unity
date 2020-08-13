@@ -356,7 +356,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 009f4954eca21d54193c0766c1929c99, type: 2}
     - target: {fileID: 919132149155446097, guid: 9235715ad3ba013418670bea8acb2ebc, type: 3}
       propertyPath: m_Name
-      value: city2
+      value: City
       objectReference: {fileID: 0}
     - target: {fileID: 1133168925949710677, guid: 9235715ad3ba013418670bea8acb2ebc, type: 3}
       propertyPath: m_Materials.Array.data[0]
