@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{2ad09452-f4cd-42d5-a3e5-5b0547539e3a}">
+		<property name="assetPath">
+			<value>DrDisrespect - Alleyways (INSTRUMENTAL).mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>126.23999999999999</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{2c278111-eb09-4de1-9099-afec7e12f038}</destination>
+		</relationship>
+	</object>
+</objects>
