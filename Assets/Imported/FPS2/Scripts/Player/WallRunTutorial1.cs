@@ -25,11 +25,11 @@ public class WallRunTutorial1 : MonoBehaviour
     {
         rb.useGravity = false;
         isWallRunning = true;
-        // allowDashForceCounter = false;
+        allowDashForceCounter = false;
 
         if (rb.velocity.magnitude <= maxWallSpeed)
         {
-            rb.AddForce(orientation.forward * (wallrunForce * Time.deltaTime));
+            rb.AddForce(orientation.forward * wallrunForce * Time.deltaTime);
 
             //Make sure char sticks to wall
             if (isWallRight)
@@ -50,6 +50,8 @@ public class WallRunTutorial1 : MonoBehaviour
 
         //leave wall run
         if (!isWallLeft && !isWallRight) StopWallRun();
+        //reset double jump (if you have one :D)
+        if (isWallLeft || isWallRight) doubleJumpsLeft = startDoubleJumps;
     }
 
 
@@ -81,49 +83,55 @@ public class WallRunTutorial1 : MonoBehaviour
     private float threshold = 0.01f;
     public float maxSlopeAngle = 35f;
 
+    //Crouch & Slide
+    private Vector3 crouchScale = new Vector3(1, 0.5f, 1);
     private Vector3 playerScale;
+    public float slideForce = 400;
+    public float slideCounterMovement = 0.2f;
+    public float crouchGravityMultiplier;
 
     //Jumping
     private bool readyToJump = true;
     private float jumpCooldown = 0.25f;
     public float jumpForce = 550f;
 
+    public int startDoubleJumps = 1;
+    int doubleJumpsLeft;
+
     //Input
     public float x, y;
     bool jumping, sprinting, crouching;
 
-    // //AirDash
-    // public float dashForce;
-    // public float dashCooldown;
-    // public float dashTime;
-    // bool allowDashForceCounter;
-    // bool readyToDash;
-    // int wTapTimes = 0;
-    // Vector3 dashStartVector;
-    //
-    // //RocketBoost
-    // public float maxRocketTime;
-    // public float rocketForce;
-    // bool rocketActive, readyToRocket;
-    // bool alreadyInvokedRockedStop;
-    // float rocketTimer;
-    //
-    
+    //AirDash
+    public float dashForce;
+    public float dashCooldown;
+    public float dashTime;
+    bool allowDashForceCounter;
+    bool readyToDash;
+    int wTapTimes = 0;
+    Vector3 dashStartVector;
+
+    //RocketBoost
+    public float maxRocketTime;
+    public float rocketForce;
+    bool rocketActive, readyToRocket;
+    bool alreadyInvokedRockedStop;
+    float rocketTimer;
+
     //Sliding
     private Vector3 normalVector = Vector3.up;
-    
-    //
-    // //SonicSpeed
-    // public float maxSonicSpeed;
-    // public float sonicSpeedForce;
-    // public float timeBetweenNextSonicBoost;
-    // float timePassedSonic;
-    //
-    // //flash
-    // public float flashCooldown, flashRange;
-    // public int maxFlashesLeft;
-    // bool alreadySubtractedFlash;
-    // public int flashesLeft = 3;
+
+    //SonicSpeed
+    public float maxSonicSpeed;
+    public float sonicSpeedForce;
+    public float timeBetweenNextSonicBoost;
+    float timePassedSonic;
+
+    //flash
+    public float flashCooldown, flashRange;
+    public int maxFlashesLeft;
+    bool alreadySubtractedFlash;
+    public int flashesLeft = 3;
 
     //Climbing
     public float climbForce, maxClimbSpeed;
@@ -154,7 +162,7 @@ public class WallRunTutorial1 : MonoBehaviour
         MyInput();
         Look();
         CheckForWall();
-        // SonicSpeed();
+        SonicSpeed();
         WallRunInput();
     }
 
@@ -168,39 +176,39 @@ public class WallRunTutorial1 : MonoBehaviour
         jumping = Input.GetButton("Jump");
         crouching = Input.GetKey(KeyCode.LeftShift);
 
-        // //Crouching
-        // if (Input.GetKeyDown(KeyCode.LeftShift))
-        //     StartCrouch();
-        // if (Input.GetKeyUp(KeyCode.LeftShift))
-        //     StopCrouch();
+        //Crouching
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+            StartCrouch();
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+            StopCrouch();
 
         //Double Jumping
-        // if (Input.GetButtonDown("Jump") && !grounded && doubleJumpsLeft >= 1)
-        // {
-        //     Jump();
-        //     doubleJumpsLeft--;
-        // }
+        if (Input.GetButtonDown("Jump") && !grounded && doubleJumpsLeft >= 1)
+        {
+            Jump();
+            doubleJumpsLeft--;
+        }
 
-        // //Dashing
-        // if (Input.GetKeyDown(KeyCode.W) && wTapTimes <= 1)
-        // {
-        //     wTapTimes++;
-        //     Invoke("ResetTapTimes", 0.3f);
-        // }
-        // if (wTapTimes == 2 && readyToDash) Dash();
-        //
-        // //SideFlash
-        // if (Input.GetKeyDown(KeyCode.Mouse1) && flashesLeft > 0 && x > 0) SideFlash(true);
-        // if (Input.GetKeyDown(KeyCode.Mouse1) && flashesLeft > 0 && x < 0) SideFlash(false);
-        //
-        // //RocketFlight
-        // if (Input.GetKeyDown(KeyCode.LeftControl) && readyToRocket)
-        // {
-        //     //Dampens velocity
-        //     rb.velocity = rb.velocity / 3;
-        // }
-        // if (Input.GetKey(KeyCode.LeftControl) && readyToRocket)
-        //     StartRocketBoost();
+        //Dashing
+        if (Input.GetKeyDown(KeyCode.W) && wTapTimes <= 1)
+        {
+            wTapTimes++;
+            Invoke("ResetTapTimes", 0.3f);
+        }
+        if (wTapTimes == 2 && readyToDash) Dash();
+
+        //SideFlash
+        if (Input.GetKeyDown(KeyCode.Mouse1) && flashesLeft > 0 && x > 0) SideFlash(true);
+        if (Input.GetKeyDown(KeyCode.Mouse1) && flashesLeft > 0 && x < 0) SideFlash(false);
+
+        //RocketFlight
+        if (Input.GetKeyDown(KeyCode.LeftControl) && readyToRocket)
+        {
+            //Dampens velocity
+            rb.velocity = rb.velocity / 3;
+        }
+        if (Input.GetKey(KeyCode.LeftControl) && readyToRocket)
+            StartRocketBoost();
 
         //Climbing
         if (Physics.Raycast(transform.position, orientation.forward, 1, whatIsLadder) && y > .9f)
@@ -208,23 +216,23 @@ public class WallRunTutorial1 : MonoBehaviour
         else alreadyStoppedAtLadder = false;
     }
 
-    // private void ResetTapTimes()
-    // {
-    //     wTapTimes = 0;
-    // }
+    private void ResetTapTimes()
+    {
+        wTapTimes = 0;
+    }
 
-    // private void StartCrouch()
-    // {
-    //     transform.localScale = crouchScale;
-    //     transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
-    //     if (rb.velocity.magnitude > 0.5f)
-    //     {
-    //         if (grounded)
-    //         {
-    //             rb.AddForce(orientation.transform.forward * slideForce);
-    //         }
-    //     }
-    // }
+    private void StartCrouch()
+    {
+        transform.localScale = crouchScale;
+        transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
+        if (rb.velocity.magnitude > 0.5f)
+        {
+            if (grounded)
+            {
+                rb.AddForce(orientation.transform.forward * slideForce);
+            }
+        }
+    }
 
     private void StopCrouch()
     {
@@ -238,9 +246,9 @@ public class WallRunTutorial1 : MonoBehaviour
         //Needed that the Ground Check works better!
         float gravityMultiplier = 10f;
 
-        // if (crouching) gravityMultiplier = crouchGravityMultiplier;
+        if (crouching) gravityMultiplier = crouchGravityMultiplier;
 
-        rb.AddForce(Vector3.down * (Time.deltaTime * gravityMultiplier));
+        rb.AddForce(Vector3.down * Time.deltaTime * gravityMultiplier);
 
         //Find actual velocity relative to where player is looking
         Vector2 mag = FindVelRelativeToLook();
@@ -249,15 +257,16 @@ public class WallRunTutorial1 : MonoBehaviour
         //Counteract sliding and sloppy movement
         CounterMovement(x, y, mag);
 
-        // //If holding jump && ready to jump, then jump
-        // if (readyToJump && jumping && grounded && !rocketActive) Jump();
+        //If holding jump && ready to jump, then jump
+        if (readyToJump && jumping && grounded && !rocketActive) Jump();
 
-        // //ResetStuff when touching ground
-        // if (grounded)
-        // {
-        //     readyToDash = true;
-        //     readyToRocket = true;
-        // }
+        //ResetStuff when touching ground
+        if (grounded)
+        {
+            readyToDash = true;
+            readyToRocket = true;
+            doubleJumpsLeft = startDoubleJumps;
+        }
 
         //Set max speed
         float maxSpeed = this.maxSpeed;
@@ -265,7 +274,7 @@ public class WallRunTutorial1 : MonoBehaviour
         //If sliding down a ramp, add force down so player stays grounded and also builds speed
         if (crouching && grounded && readyToJump)
         {
-            rb.AddForce(Vector3.down * (Time.deltaTime * 3000));
+            rb.AddForce(Vector3.down * Time.deltaTime * 3000);
             return;
         }
 
@@ -289,8 +298,8 @@ public class WallRunTutorial1 : MonoBehaviour
         if (grounded && crouching) multiplierV = 0f;
 
         //Apply forces to move player
-        rb.AddForce(orientation.transform.forward * (y * moveSpeed * Time.deltaTime * multiplier * multiplierV));
-        rb.AddForce(orientation.transform.right * (x * moveSpeed * Time.deltaTime * multiplier));
+        rb.AddForce(orientation.transform.forward * y * moveSpeed * Time.deltaTime * multiplier * multiplierV);
+        rb.AddForce(orientation.transform.right * x * moveSpeed * Time.deltaTime * multiplier);
     }
 
     private void Jump()
@@ -324,8 +333,8 @@ public class WallRunTutorial1 : MonoBehaviour
             //Reset Velocity
             rb.velocity = Vector3.zero;
 
-            // //Disable dashForceCounter if doublejumping while dashing
-            // allowDashForceCounter = false;
+            //Disable dashForceCounter if doublejumping while dashing
+            allowDashForceCounter = false;
 
             Invoke(nameof(ResetJump), jumpCooldown);
         }
@@ -350,8 +359,8 @@ public class WallRunTutorial1 : MonoBehaviour
             //Always add forward force
             rb.AddForce(orientation.forward * jumpForce * 1f);
 
-            // //Disable dashForceCounter if doublejumping while dashing
-            // allowDashForceCounter = false;
+            //Disable dashForceCounter if doublejumping while dashing
+            allowDashForceCounter = false;
 
             Invoke(nameof(ResetJump), jumpCooldown);
         }
@@ -362,144 +371,144 @@ public class WallRunTutorial1 : MonoBehaviour
         readyToJump = true;
     }
 
-    // private void Dash()
-    // {
-    //     //saves current velocity
-    //     dashStartVector = orientation.forward;
-    //
-    //     allowDashForceCounter = true;
-    //
-    //     readyToDash = false;
-    //     wTapTimes = 0;
-    //
-    //     //Deactivate gravity
-    //     rb.useGravity = false;
-    //
-    //     //Add force
-    //     rb.velocity = Vector3.zero;
-    //     rb.AddForce(orientation.forward * dashForce);
-    //
-    //     Invoke("ActivateGravity", dashTime);
-    // }
+    private void Dash()
+    {
+        //saves current velocity
+        dashStartVector = orientation.forward;
+
+        allowDashForceCounter = true;
+
+        readyToDash = false;
+        wTapTimes = 0;
+
+        //Deactivate gravity
+        rb.useGravity = false;
+
+        //Add force
+        rb.velocity = Vector3.zero;
+        rb.AddForce(orientation.forward * dashForce);
+
+        Invoke("ActivateGravity", dashTime);
+    }
     private void ActivateGravity()
     {
         rb.useGravity = true;
 
         //Counter currentForce
-        // if (allowDashForceCounter)
-        // {
-        //     rb.AddForce(dashStartVector * -dashForce * 0.5f);
-        // }
+        if (allowDashForceCounter)
+        {
+            rb.AddForce(dashStartVector * -dashForce * 0.5f);
+        }
     }
-    // private void SonicSpeed()
-    // {
-    //     //If running builds up speed
-    //     if (grounded && y >= 0.99f)
-    //     {
-    //         timePassedSonic += Time.deltaTime;
-    //     }
-    //     else
-    //     {
-    //         timePassedSonic = 0;
-    //         maxSpeed = startMaxSpeed;
-    //     }
-    //
-    //     if (timePassedSonic >= timeBetweenNextSonicBoost)
-    //     {
-    //         if (maxSpeed <= maxSonicSpeed)
-    //         {
-    //             maxSpeed += 5;
-    //             rb.AddForce(orientation.forward * Time.deltaTime * sonicSpeedForce);
-    //         }
-    //         timePassedSonic = 0;
-    //     }
-    // }
-    // private void SideFlash(bool isRight)
-    // {
-    //     RaycastHit hit;
-    //     //Flash Right
-    //     if (Physics.Raycast(orientation.position, orientation.right, out hit, flashRange) && isRight)
-    //     {
-    //         transform.position = hit.point;
-    //     }
-    //     else if (!Physics.Raycast(orientation.position, orientation.right, out hit, flashRange) && isRight)
-    //         transform.position = new Vector3(transform.position.x + flashRange, transform.position.y, transform.position.z);
-    //
-    //     //Flash Left
-    //     if (Physics.Raycast(orientation.position, -orientation.right, out hit, flashRange) && !isRight)
-    //     {
-    //         transform.position = hit.point;
-    //     }
-    //     else if (!Physics.Raycast(orientation.position, -orientation.right, out hit, flashRange) && !isRight)
-    //         transform.position = new Vector3(transform.position.x - flashRange, transform.position.y, transform.position.z);
-    //
-    //     //Dampen falldown
-    //     Vector3 vel = rb.velocity;
-    //     if (rb.velocity.y < 0.5f && !alreadyStoppedAtLadder)
-    //     {
-    //         rb.velocity = new Vector3(vel.x, 0, vel.z);
-    //     }
-    //
-    //     flashesLeft--;
-    //     if (!alreadySubtractedFlash)
-    //     {
-    //         Invoke("ResetFlash", flashCooldown);
-    //         alreadySubtractedFlash = true;
-    //     }
-    // }
-    // private void ResetFlash()
-    // {
-    //     alreadySubtractedFlash = false;
-    //     Invoke("ResetFlash", flashCooldown);
-    //
-    //     if (flashesLeft < maxFlashesLeft)
-    //         flashesLeft++;
-    // }
-    // private void StartRocketBoost()
-    // {
-    //     if (!alreadyInvokedRockedStop)
-    //     {
-    //         Invoke("StopRocketBoost", maxRocketTime);
-    //         alreadyInvokedRockedStop = true;
-    //     }
-    //
-    //     rocketTimer += Time.deltaTime;
-    //
-    //     rocketActive = true;
-    //
-    //     //Disable dashForceCounter if doublejumping while dashing
-    //     allowDashForceCounter = false;
-    //
-    //     /*Boost all Forces
-    //     Vector3 vel = velocityToBoost;
-    //     Vector3 velBoosted = vel * rocketBoostMultiplier;
-    //     rb.velocity = velBoosted;
-    //     */
-    //
-    //     //Boost forwards and upwards
-    //     rb.AddForce(orientation.forward * rocketForce * Time.deltaTime * 1f);
-    //     rb.AddForce(Vector3.up * rocketForce * Time.deltaTime * 2f);
-    //
-    // }
-    // private void StopRocketBoost()
-    // {
-    //     alreadyInvokedRockedStop = false;
-    //     rocketActive = false;
-    //     readyToRocket = false;
-    //
-    //     if (rocketTimer >= maxRocketTime - 0.2f)
-    //     {
-    //         rb.AddForce(orientation.forward * rocketForce * -.2f);
-    //         rb.AddForce(Vector3.up * rocketForce * -.4f);
-    //     }
-    //     else
-    //     {
-    //         rb.AddForce(orientation.forward * rocketForce * -.2f * rocketTimer);
-    //         rb.AddForce(Vector3.up * rocketForce * -.4f * rocketTimer);
-    //     }
-    //
-    //     rocketTimer = 0;
-    // }
+    private void SonicSpeed()
+    {
+        //If running builds up speed
+        if (grounded && y >= 0.99f)
+        {
+            timePassedSonic += Time.deltaTime;
+        }
+        else
+        {
+            timePassedSonic = 0;
+            maxSpeed = startMaxSpeed;
+        }
+
+        if (timePassedSonic >= timeBetweenNextSonicBoost)
+        {
+            if (maxSpeed <= maxSonicSpeed)
+            {
+                maxSpeed += 5;
+                rb.AddForce(orientation.forward * Time.deltaTime * sonicSpeedForce);
+            }
+            timePassedSonic = 0;
+        }
+    }
+    private void SideFlash(bool isRight)
+    {
+        RaycastHit hit;
+        //Flash Right
+        if (Physics.Raycast(orientation.position, orientation.right, out hit, flashRange) && isRight)
+        {
+            transform.position = hit.point;
+        }
+        else if (!Physics.Raycast(orientation.position, orientation.right, out hit, flashRange) && isRight)
+            transform.position = new Vector3(transform.position.x + flashRange, transform.position.y, transform.position.z);
+
+        //Flash Left
+        if (Physics.Raycast(orientation.position, -orientation.right, out hit, flashRange) && !isRight)
+        {
+            transform.position = hit.point;
+        }
+        else if (!Physics.Raycast(orientation.position, -orientation.right, out hit, flashRange) && !isRight)
+            transform.position = new Vector3(transform.position.x - flashRange, transform.position.y, transform.position.z);
+
+        //Dampen falldown
+        Vector3 vel = rb.velocity;
+        if (rb.velocity.y < 0.5f && !alreadyStoppedAtLadder)
+        {
+            rb.velocity = new Vector3(vel.x, 0, vel.z);
+        }
+
+        flashesLeft--;
+        if (!alreadySubtractedFlash)
+        {
+            Invoke("ResetFlash", flashCooldown);
+            alreadySubtractedFlash = true;
+        }
+    }
+    private void ResetFlash()
+    {
+        alreadySubtractedFlash = false;
+        Invoke("ResetFlash", flashCooldown);
+
+        if (flashesLeft < maxFlashesLeft)
+            flashesLeft++;
+    }
+    private void StartRocketBoost()
+    {
+        if (!alreadyInvokedRockedStop)
+        {
+            Invoke("StopRocketBoost", maxRocketTime);
+            alreadyInvokedRockedStop = true;
+        }
+
+        rocketTimer += Time.deltaTime;
+
+        rocketActive = true;
+
+        //Disable dashForceCounter if doublejumping while dashing
+        allowDashForceCounter = false;
+
+        /*Boost all Forces
+        Vector3 vel = velocityToBoost;
+        Vector3 velBoosted = vel * rocketBoostMultiplier;
+        rb.velocity = velBoosted;
+        */
+
+        //Boost forwards and upwards
+        rb.AddForce(orientation.forward * rocketForce * Time.deltaTime * 1f);
+        rb.AddForce(Vector3.up * rocketForce * Time.deltaTime * 2f);
+
+    }
+    private void StopRocketBoost()
+    {
+        alreadyInvokedRockedStop = false;
+        rocketActive = false;
+        readyToRocket = false;
+
+        if (rocketTimer >= maxRocketTime - 0.2f)
+        {
+            rb.AddForce(orientation.forward * rocketForce * -.2f);
+            rb.AddForce(Vector3.up * rocketForce * -.4f);
+        }
+        else
+        {
+            rb.AddForce(orientation.forward * rocketForce * -.2f * rocketTimer);
+            rb.AddForce(Vector3.up * rocketForce * -.4f * rocketTimer);
+        }
+
+        rocketTimer = 0;
+    }
     private void Climb()
     {
         //Makes possible to climb even when falling down fast
@@ -509,12 +518,12 @@ public class WallRunTutorial1 : MonoBehaviour
             rb.velocity = new Vector3(vel.x, 0, vel.z);
             //Make sure char get's at wall
             alreadyStoppedAtLadder = true;
-            rb.AddForce(orientation.forward * (500 * Time.deltaTime));
+            rb.AddForce(orientation.forward * 500 * Time.deltaTime);
         }
 
         //Push character up
         if (rb.velocity.magnitude < maxClimbSpeed)
-            rb.AddForce(orientation.up * (climbForce * Time.deltaTime));
+            rb.AddForce(orientation.up * climbForce * Time.deltaTime);
 
         //Doesn't Push into the wall
         if (!Input.GetKey(KeyCode.S)) y = 0;
@@ -556,20 +565,20 @@ public class WallRunTutorial1 : MonoBehaviour
         if (!grounded || jumping) return;
 
         //Slow down sliding
-        // if (crouching)
-        // {
-        //     rb.AddForce(moveSpeed * Time.deltaTime * -rb.velocity.normalized * slideCounterMovement);
-        //     return;
-        // }
+        if (crouching)
+        {
+            rb.AddForce(moveSpeed * Time.deltaTime * -rb.velocity.normalized * slideCounterMovement);
+            return;
+        }
 
         //Counter movement
         if (Math.Abs(mag.x) > threshold && Math.Abs(x) < 0.05f || (mag.x < -threshold && x > 0) || (mag.x > threshold && x < 0))
         {
-            rb.AddForce(orientation.transform.right * (moveSpeed * Time.deltaTime * -mag.x * counterMovement));
+            rb.AddForce(moveSpeed * orientation.transform.right * Time.deltaTime * -mag.x * counterMovement);
         }
         if (Math.Abs(mag.y) > threshold && Math.Abs(y) < 0.05f || (mag.y < -threshold && y > 0) || (mag.y > threshold && y < 0))
         {
-            rb.AddForce(orientation.transform.forward * (moveSpeed * Time.deltaTime * -mag.y * counterMovement));
+            rb.AddForce(moveSpeed * orientation.transform.forward * Time.deltaTime * -mag.y * counterMovement);
         }
 
         //Limit diagonal running. This will also cause a full stop if sliding fast and un-crouching, so not optimal.

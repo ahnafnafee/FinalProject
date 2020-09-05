@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Wall
+  - Ground
+  - ExplosionBarrel
   layers:
   - Default
   - TransparentFX

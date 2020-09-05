@@ -9,14 +9,20 @@ public class WeaponSwitcher : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Alpha4))
+        if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Alpha2))
             DeactivateAll();
 
-        if (Input.GetKeyDown(KeyCode.Alpha1)) weapons[0].SetActive(true);
-        if (Input.GetKeyDown(KeyCode.Alpha2)) grappleGun.GetComponent<GrapplingGun>().isActive = true;
-        if (Input.GetKeyDown(KeyCode.Alpha3)) weapons[2].SetActive(true);
-        if (Input.GetKeyDown(KeyCode.Alpha4)) weapons[3].SetActive(true);
-        if (Input.GetKeyDown(KeyCode.Alpha5)) weapons[4].SetActive(true);
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            weapons[0].SetActive(true);
+            GlobalVar.GunName = "Gun";
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            grappleGun.GetComponent<GrapplingGun>().isActive = true;
+            GlobalVar.GunName = "Grapple";
+        }
     }
 
     private void DeactivateAll()

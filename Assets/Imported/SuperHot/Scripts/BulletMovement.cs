@@ -32,7 +32,13 @@ public class BulletMovement : MonoBehaviour
 
             bp.HidePartAndReplace();
             bp.enemy.Ragdoll();
+            Debug.Log("Enemy killed!");
         }
         Destroy(gameObject);
+        
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("Hit!");
+        }
     }
 }

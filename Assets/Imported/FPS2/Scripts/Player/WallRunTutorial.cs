@@ -149,6 +149,16 @@ public class WallRunTutorial : MonoBehaviour
         playerScale = transform.localScale;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        ClearConsole();
+    }
+    
+    static void ClearConsole()
+    {
+        var logEntries = System.Type.GetType("UnityEditor.LogEntries, UnityEditor.dll");
+ 
+        var clearMethod = logEntries.GetMethod("Clear", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
+ 
+        clearMethod.Invoke(null, null);
     }
 
 
@@ -164,6 +174,7 @@ public class WallRunTutorial : MonoBehaviour
         CheckForWall();
         SonicSpeed();
         WallRunInput();
+        
     }
 
     /// <summary>

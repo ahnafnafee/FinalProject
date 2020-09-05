@@ -6,6 +6,7 @@ public class Gun : MonoBehaviour
 {
     public Transform Cam;
     public GameObject Player;
+    // public Camera myCam;
 
     public bool IsUsingRayCasts;
     public bool IsUsingBullets;
@@ -23,9 +24,14 @@ public class Gun : MonoBehaviour
     {  
         if (IsUsingRayCasts)
         {
+            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             RaycastHit hit;
-            if (Physics.Raycast(Cam.transform.position, Cam.transform.forward, out hit, range))
+            if (Physics.Raycast(ray, out hit, range))
             {
+                Vector3 colisionPoint = hit.point;
+                Vector3 bulletVector = colisionPoint - Bullet.transform.position;
+
+                GameObject bulletInstance = Instantiate(Bullet, Bullet.transform);
                 // if (hit.collider.CompareTag("ExplosionBarrel"))
                 //     hit.collider.GetComponent<ExplosionBarrel>().PushExplosion();
 
@@ -38,7 +44,7 @@ public class Gun : MonoBehaviour
             //Calculate Direction and Spread
             //Quaternion Direction = Cam.transform.rotation + Quaternion.Euler(spread, spread, 0);
 
-            Instantiate(Bullet, ShootingPoint.position, Cam.transform.rotation);
+            // Instantiate(Bullet, ShootingPoint.position, Camera.main.transform.rotation);
         }
     }
     private void Update()

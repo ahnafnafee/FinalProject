@@ -6,9 +6,10 @@ using DG.Tweening;
 
 [RequireComponent(typeof(Rigidbody))]
 [SelectionBase]
-public class WeaponScript : MonoBehaviour
+public class WeaponScript1 : MonoBehaviour
 {
     public Camera myCam;
+    public GameObject target;
     public GameObject bulletPrefab;
     
     [Header("Bools")]
@@ -63,8 +64,8 @@ public class WeaponScript : MonoBehaviour
         if(SuperHotScript1.instance.weapon == this)
             StartCoroutine(Reload());
 
-        myCam.transform.DOComplete();
-        myCam.transform.DOShakePosition(.2f, .01f, 10, 90, false, true).SetUpdate(true);
+        target.transform.DOComplete();
+        target.transform.DOShakePosition(.2f, .01f, 10, 90, false, true).SetUpdate(true);
 
         // if(SuperHotScript.instance.weapon == this)
         //     transform.DOLocalMoveZ(-.1f, .05f).OnComplete(()=>transform.DOLocalMoveZ(0,.2f));
@@ -80,33 +81,6 @@ public class WeaponScript : MonoBehaviour
         s.AppendCallback(() => rb.AddForce(myCam.transform.forward * 10, ForceMode.Impulse));
         s.AppendCallback(() => rb.AddTorque(transform.transform.right + transform.transform.up * 20, ForceMode.Impulse));
     }
-
-    public void Pickup()
-    {
-        if (!active)
-            return;
-
-        SuperHotScript.instance.weapon = this;
-        ChangeSettings();
-
-        transform.parent = SuperHotScript.instance.weaponHolder;
-
-        transform.DOLocalMove(Vector3.zero, .25f).SetEase(Ease.OutBack).SetUpdate(true);
-        transform.DOLocalRotate(Vector3.zero, .25f).SetUpdate(true);
-    }
-
-    public void Release()
-    {
-        active = true;
-        transform.parent = null;
-        rb.isKinematic = false;
-        rb.interpolation = RigidbodyInterpolation.Interpolate;
-        collider.isTrigger = false;
-
-        rb.AddForce((myCam.transform.position - transform.position) * 2, ForceMode.Impulse);
-        rb.AddForce(Vector3.up * 2, ForceMode.Impulse);
-
-    } 
 
     IEnumerator Reload()
     {
@@ -130,11 +104,6 @@ public class WeaponScript : MonoBehaviour
 
             bp.HidePartAndReplace();
             bp.enemy.Ragdoll();
-        }
-        
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            Debug.Log("Hit!");
         }
 
     }

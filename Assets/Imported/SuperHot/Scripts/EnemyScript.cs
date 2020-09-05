@@ -9,7 +9,9 @@ public class EnemyScript : MonoBehaviour
     public bool dead;
     public Transform weaponHolder;
 
+    public GameObject target;
     public Camera myCam;
+    public float speed = 5f;
 
     void Start()
     {
@@ -25,8 +27,11 @@ public class EnemyScript : MonoBehaviour
     {
         if (!dead)
         {
-            var position = myCam.transform.position;
-            transform.LookAt(new Vector3(position.x, 0, position.z));
+            Vector3 direction = target.transform.position - transform.position;
+            Quaternion rotation = Quaternion.LookRotation(direction);
+
+            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, speed * Time.deltaTime);
+
         }
     }
 
