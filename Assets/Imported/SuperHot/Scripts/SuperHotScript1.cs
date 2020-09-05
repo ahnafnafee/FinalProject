@@ -65,18 +65,6 @@ public class SuperHotScript1 : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(1))
-        {
-            StopCoroutine(ActionE(.4f));
-            StartCoroutine(ActionE(.4f));
-
-            if(weapon != null)
-            {
-                weapon.Throw();
-                weapon = null;
-            }
-        }
-
         RaycastHit hit;
         if(Physics.Raycast(myCam.transform.position, myCam.transform.forward, out hit,10, weaponLayer))
         {
