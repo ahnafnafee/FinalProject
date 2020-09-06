@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuInterface : MonoBehaviour
 {
@@ -26,6 +27,10 @@ public class MenuInterface : MonoBehaviour
         }
     }
 
+    public void StartLevel()
+    {
+        SceneManager.LoadSceneAsync("Level 1");
+    }
 
     public void EnterSettings()
     {

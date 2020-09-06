@@ -956,7 +956,6 @@ GameObject:
   m_Component:
   - component: {fileID: 578367345}
   - component: {fileID: 578367344}
-  - component: {fileID: 578367343}
   - component: {fileID: 578367346}
   m_Layer: 0
   m_Name: Main Camera
@@ -965,14 +964,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &578367343
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 578367342}
-  m_Enabled: 1
 --- !u!20 &578367344
 Camera:
   m_ObjectHideFlags: 0
@@ -1071,6 +1062,8 @@ GameObject:
   m_Component:
   - component: {fileID: 616015594}
   - component: {fileID: 616015595}
+  - component: {fileID: 616015597}
+  - component: {fileID: 616015596}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -1106,6 +1099,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settings: {fileID: 1359033601}
   start: {fileID: 1420902134}
+--- !u!114 &616015596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 616015593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  Event: event:/DrDisrespect - Alleyways (INSTRUMENTAL)
+  PlayEvent: 1
+  StopEvent: 2
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!114 &616015597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 616015593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ListenerNumber: -1
 --- !u!1 &687700725
 GameObject:
   m_ObjectHideFlags: 0
@@ -2156,7 +2185,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1567541260}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 616015595}
+        m_TargetAssemblyTypeName: MenuInterface, Assembly-CSharp
+        m_MethodName: StartLevel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1625930396
 GameObject:
   m_ObjectHideFlags: 0
