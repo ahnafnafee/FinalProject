@@ -30,10 +30,28 @@ public class WeaponScript : MonoBehaviour
     [Space] [Header("UI Settings")] 
     public GameObject winInterface;
     public GameObject loseInterface;
+    
+    [Space] [Header("Health")] 
+    public int maxHealth = 50;
+    public int currentHealth;
+
+    public HealthBar healthBar;
+
+    [Space] [Header("Enemy Info")] 
+    public int enemyNo = 1;
 
 
     void Start()
     {
+        GlobalVar.currentHealth = maxHealth;
+        GlobalVar.maxHealth = maxHealth;
+        
+        currentHealth = maxHealth;
+        
+        healthBar.SetMaxHealth(maxHealth);
+        
+        GlobalVar.EnemyNo = enemyNo;
+        
         rb = GetComponent<Rigidbody>();
         collider = GetComponent<Collider>();
         renderer = GetComponent<Renderer>();
@@ -160,9 +178,6 @@ public class WeaponScript : MonoBehaviour
 
             bp.HidePartAndReplace();
             bp.enemy.Ragdoll();
-            
-            // EnterWinInterface();
-
         }
         
         // if (collision.gameObject.CompareTag("Player"))
@@ -170,6 +185,12 @@ public class WeaponScript : MonoBehaviour
         //     EnterLoseInterface();
         // }
 
+    }
+
+    void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        healthBar.SetHealth(currentHealth);
     }
 
     private void Update()
@@ -181,6 +202,8 @@ public class WeaponScript : MonoBehaviour
         {
             EnterLoseInterface();
         }
+        
+        healthBar.SetHealth(GlobalVar.currentHealth);
     }
 
     public void EnterWinInterface()

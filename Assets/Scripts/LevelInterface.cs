@@ -7,6 +7,7 @@ public class LevelInterface : MonoBehaviour
 {
     public GameObject settings;
     public GameObject pause;
+    public GameObject crosshair;
 
     private bool isSetting = false;
     private bool isPause = false;
@@ -17,7 +18,10 @@ public class LevelInterface : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        crosshair.SetActive(true);
         Time.timeScale = 1;
+        isSetting = false;
+        isPause = false;
         GlobalVar.AltInterfaceOpen = false;
         GlobalVar.IsLoss = false;
         GlobalVar.IsWin = false; 
@@ -48,6 +52,8 @@ public class LevelInterface : MonoBehaviour
     {
         if (!GlobalVar.AltInterfaceOpen)
         {
+            crosshair.SetActive(false);
+            Debug.Log("I'm Paused");
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
             Time.timeScale = 0;
@@ -67,6 +73,7 @@ public class LevelInterface : MonoBehaviour
 
     public void Resume()
     {
+        crosshair.SetActive(true);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         pause.SetActive(false);

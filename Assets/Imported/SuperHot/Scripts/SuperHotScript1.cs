@@ -33,7 +33,6 @@ public class SuperHotScript1 : MonoBehaviour
     public GameObject hitParticlePrefab;
     public GameObject bulletPrefab;
 
-
     public void Start()
     {
         GlobalVar.GunName = "Gun";
@@ -54,7 +53,7 @@ public class SuperHotScript1 : MonoBehaviour
             UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
         }
 
-        if (!GlobalVar.IsPaused)
+        if (!GlobalVar.IsPaused || !GlobalVar.AltInterfaceOpen)
         {
             if (canShoot && GlobalVar.GunName == "Gun")
             {
