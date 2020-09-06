@@ -15,12 +15,14 @@ public class WeaponSwitcher : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             weapons[0].SetActive(true);
+            grappleGun.SetActive(false);
             GlobalVar.GunName = "Gun";
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             grappleGun.GetComponent<GrapplingGun>().isActive = true;
+            grappleGun.SetActive(true);
             GlobalVar.GunName = "Grapple";
         }
     }

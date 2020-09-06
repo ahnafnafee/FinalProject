@@ -12,12 +12,19 @@ public class BulletMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        StartCoroutine(DestroyBullet());
     }
 
     // Update is called once per frame
     void Update()
     {
         transform.position += transform.forward * speed * Time.deltaTime;
+    }
+    
+    IEnumerator DestroyBullet()
+    {
+        yield return new WaitForSeconds(10f);
+        Destroy(gameObject);
     }
 
 
