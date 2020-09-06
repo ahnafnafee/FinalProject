@@ -1,5 +1,23 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-5826904566012379758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/FMOD/Final/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637349901341894352
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
 --- !u!114 &-4780325397462549859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22,6 +40,29 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 122000
+--- !u!114 &-1667060118269494712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Master/Timecop1983 - On the Run
+  m_EditorClassIdentifier: 
+  Path: event:/Master/Timecop1983 - On the Run
+  guid: b72bad9cb158dd4f8f73179f9aa9e61d
+  Banks:
+  - {fileID: -5826904566012379758}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 300904
 --- !u!114 &-1006672797780339244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57,7 +98,7 @@ MonoBehaviour:
   lastModified: 637349878701818042
   LoadResult: 0
   FileSizes: []
-  Exists: 1
+  Exists: 0
 --- !u!114 &-204650657320653415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90,15 +131,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: 7492531881894768942}
-  - {fileID: -460220109929604929}
+  - {fileID: -5826904566012379758}
   EditorEvents:
   - {fileID: 9014787193782820774}
+  - {fileID: -1667060118269494712}
   EditorParameters: []
   MasterBanks:
-  - {fileID: -460220109929604929}
+  - {fileID: -5826904566012379758}
   StringsBanks:
   - {fileID: 7492531881894768942}
-  stringsBankWriteTime: 637349878701847792
+  stringsBankWriteTime: 637349901341924117
   cacheVersion: 3
 --- !u!114 &643916634052940450
 MonoBehaviour:
@@ -168,12 +210,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: Assets/FMOD/Final/Build/Desktop/Master.strings.bank
   SubDir: 
-  lastModified: 637349878701847792
+  lastModified: 637349901341924117
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 808
+    Value: 876
   Exists: 1
+--- !u!114 &8523660277600247255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/FMOD/Final/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637349886076768120
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
 --- !u!114 &9014787193782820774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,7 +249,7 @@ MonoBehaviour:
   Path: event:/Master/DrDisrespect - Alleyways (INSTRUMENTAL)
   guid: 88f830e62d972b40bcafc31a0113ca7d
   Banks:
-  - {fileID: -460220109929604929}
+  - {fileID: -5826904566012379758}
   IsStream: 1
   Is3D: 1
   IsOneShot: 0

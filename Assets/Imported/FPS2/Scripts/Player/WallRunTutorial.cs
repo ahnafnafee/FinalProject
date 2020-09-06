@@ -170,7 +170,10 @@ public class WallRunTutorial : MonoBehaviour
     private void Update()
     {
         MyInput();
-        Look();
+        if (!GlobalVar.IsPaused)
+        {
+            Look();
+        }
         CheckForWall();
         SonicSpeed();
         WallRunInput();

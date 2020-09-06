@@ -18,19 +18,22 @@ public class GrapplingGun : MonoBehaviour {
     }
 
     void Update() {
-        if (Input.GetMouseButtonDown(0)) {
-            StartGrapple();
-        }
-        else if (Input.GetMouseButtonUp(0)) {
-            StopGrapple();
-        }
+        if (!GlobalVar.IsPaused)
+        {
+            if (Input.GetMouseButtonDown(0)) {
+                StartGrapple();
+            }
+            else if (Input.GetMouseButtonUp(0)) {
+                StopGrapple();
+            }
 
-        //Fix
-        if (isActive){
-            gameObject.GetComponent<MeshRenderer>().enabled = true;
+            //Fix
+            if (isActive){
+                gameObject.GetComponent<MeshRenderer>().enabled = true;
+            }
+            else gameObject.GetComponent<MeshRenderer>().enabled = false;
+            if (!isActive) StartGrapple();
         }
-        else gameObject.GetComponent<MeshRenderer>().enabled = false;
-        if (!isActive) StartGrapple();
     }
 
     //Called after Update

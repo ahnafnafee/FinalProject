@@ -54,25 +54,29 @@ public class SuperHotScript1 : MonoBehaviour
             UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
         }
 
-        if (canShoot && GlobalVar.GunName == "Gun")
+        if (!GlobalVar.IsPaused)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (canShoot && GlobalVar.GunName == "Gun")
             {
-                StopCoroutine(ActionE(.03f));
-                StartCoroutine(ActionE(.03f));
-                if (weapon != null)
-                    weapon.Shoot(SpawnPos(), myCam.transform.rotation, false);
+                if (Input.GetMouseButtonDown(0))
+                {
+                    StopCoroutine(ActionE(.03f));
+                    StartCoroutine(ActionE(.03f));
+                    if (weapon != null)
+                        weapon.Shoot(SpawnPos(), myCam.transform.rotation, false);
+                }
+            }
+
+            RaycastHit hit;
+            if(Physics.Raycast(myCam.transform.position, myCam.transform.forward, out hit,10, weaponLayer))
+            {
+                if (Input.GetMouseButtonDown(0) && weapon == null)
+                {
+                    hit.transform.GetComponent<WeaponScript>().Pickup();
+                }
             }
         }
 
-        RaycastHit hit;
-        if(Physics.Raycast(myCam.transform.position, myCam.transform.forward, out hit,10, weaponLayer))
-        {
-            if (Input.GetMouseButtonDown(0) && weapon == null)
-            {
-                hit.transform.GetComponent<WeaponScript>().Pickup();
-            }
-        }
     }
 
     IEnumerator ActionE(float time)

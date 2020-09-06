@@ -6,4 +6,5 @@ using UnityEngine;
 public static class GlobalVar
 {
     public static String GunName = "Gun";
+    public static bool IsPaused = false;
 }
