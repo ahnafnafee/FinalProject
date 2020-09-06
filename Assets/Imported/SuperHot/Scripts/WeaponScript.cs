@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,8 @@ using DG.Tweening;
 [SelectionBase]
 public class WeaponScript : MonoBehaviour
 {
+    public static WeaponScript instance;
+    
     public Camera myCam;
     public GameObject bulletPrefab;
     
@@ -129,9 +132,20 @@ public class WeaponScript : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f);
         winInterface.SetActive(true);
+        GlobalVar.AltInterfaceOpen = true;
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+    }
+    
+    IEnumerator HaltLose()
+    {
+        yield return new WaitForSeconds(0.5f);
+        loseInterface.SetActive(true);
+        Time.timeScale = 0;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        GlobalVar.AltInterfaceOpen = true;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -142,23 +156,41 @@ public class WeaponScript : MonoBehaviour
             BodyPartScript bp = collision.gameObject.GetComponent<BodyPartScript>();
 
             if (!bp.enemy.dead)
-                Instantiate(SuperHotScript.instance.hitParticlePrefab, transform.position, transform.rotation);
+                Instantiate(SuperHotScript1.instance.hitParticlePrefab, transform.position, transform.rotation);
 
             bp.HidePartAndReplace();
             bp.enemy.Ragdoll();
             
-            StartCoroutine(Halt());
+            // EnterWinInterface();
+
         }
         
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            Debug.Log("Hit!");
-            loseInterface.SetActive(true);
-            Time.timeScale = 0;
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-        }
+        // if (collision.gameObject.CompareTag("Player"))
+        // {
+        //     EnterLoseInterface();
+        // }
 
+    }
+
+    private void Update()
+    {
+        if (GlobalVar.IsWin)
+        {
+            EnterWinInterface();
+        } else if (GlobalVar.IsLoss)
+        {
+            EnterLoseInterface();
+        }
+    }
+
+    public void EnterWinInterface()
+    {
+        StartCoroutine(Halt());
+    }
+
+    public void EnterLoseInterface()
+    {
+        StartCoroutine(HaltLose());
     }
 
 }

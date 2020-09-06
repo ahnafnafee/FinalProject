@@ -18,6 +18,9 @@ public class LevelInterface : MonoBehaviour
     void Start()
     {
         Time.timeScale = 1;
+        GlobalVar.AltInterfaceOpen = false;
+        GlobalVar.IsLoss = false;
+        GlobalVar.IsWin = false; 
         settings.SetActive(false);
         pause.SetActive(false);
         index = SceneManager.GetActiveScene().buildIndex;
@@ -43,12 +46,16 @@ public class LevelInterface : MonoBehaviour
     
     public void EnterPause()
     {
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-        Time.timeScale = 0;
-        pause.SetActive(true);
-        GlobalVar.IsPaused = true;
-        isPause = true;
+        if (!GlobalVar.AltInterfaceOpen)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            Time.timeScale = 0;
+            pause.SetActive(true);
+            GlobalVar.IsPaused = true;
+            isPause = true;
+            GlobalVar.AltInterfaceOpen = false;
+        }
     }
     
     public void EnterSettings()

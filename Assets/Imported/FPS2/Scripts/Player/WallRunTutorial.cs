@@ -170,7 +170,7 @@ public class WallRunTutorial : MonoBehaviour
     private void Update()
     {
         MyInput();
-        if (!GlobalVar.IsPaused)
+        if (!GlobalVar.IsPaused || !GlobalVar.AltInterfaceOpen)
         {
             Look();
         }
