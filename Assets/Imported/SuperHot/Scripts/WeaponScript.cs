@@ -24,12 +24,19 @@ public class WeaponScript : MonoBehaviour
     public float reloadTime = .3f;
     public int bulletAmount = 6;
 
+    [Space] [Header("UI Settings")] 
+    public GameObject winInterface;
+    public GameObject loseInterface;
+
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         collider = GetComponent<Collider>();
         renderer = GetComponent<Renderer>();
+        
+        winInterface.SetActive(false);
+        loseInterface.SetActive(false);
 
         ChangeSettings();
     }
@@ -103,8 +110,8 @@ public class WeaponScript : MonoBehaviour
         rb.interpolation = RigidbodyInterpolation.Interpolate;
         collider.isTrigger = false;
 
-        rb.AddForce((myCam.transform.position - transform.position) * 2, ForceMode.Impulse);
-        rb.AddForce(Vector3.up * 2, ForceMode.Impulse);
+        // rb.AddForce((myCam.transform.position - transform.position) * 2, ForceMode.Impulse);
+        // rb.AddForce(Vector3.up * 2, ForceMode.Impulse);
 
     } 
 
@@ -116,6 +123,15 @@ public class WeaponScript : MonoBehaviour
         reloading = true;
         yield return new WaitForSeconds(reloadTime);
         reloading = false;
+    }
+    
+    IEnumerator Halt()
+    {
+        yield return new WaitForSeconds(1.5f);
+        winInterface.SetActive(true);
+        Time.timeScale = 0;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -130,11 +146,17 @@ public class WeaponScript : MonoBehaviour
 
             bp.HidePartAndReplace();
             bp.enemy.Ragdoll();
+            
+            StartCoroutine(Halt());
         }
         
         if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log("Hit!");
+            loseInterface.SetActive(true);
+            Time.timeScale = 0;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
 
     }

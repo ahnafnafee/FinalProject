@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelInterface : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class LevelInterface : MonoBehaviour
 
     private bool isSetting = false;
     private bool isPause = false;
+
+    private int index;
     
     
     // Start is called before the first frame update
@@ -17,6 +20,7 @@ public class LevelInterface : MonoBehaviour
         Time.timeScale = 1;
         settings.SetActive(false);
         pause.SetActive(false);
+        index = SceneManager.GetActiveScene().buildIndex;
     }
 
     // Update is called once per frame
@@ -67,6 +71,16 @@ public class LevelInterface : MonoBehaviour
     public void Restart()
     {
         GlobalVar.IsPaused = false;
-        UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        SceneManager.LoadSceneAsync(index);
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
+    public void NextLevel()
+    {
+        SceneManager.LoadSceneAsync(index + 1);
     }
 }

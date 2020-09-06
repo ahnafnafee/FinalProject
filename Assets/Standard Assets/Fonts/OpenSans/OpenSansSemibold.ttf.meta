@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: 01cd679a1b9ee48bf9c546f6ce2cb97e
+labels:
+- 80s
+- Aesthetics
+- Retro
+- Vaporware
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Open Sans
+  fontNames:
+  - Open Sans
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
