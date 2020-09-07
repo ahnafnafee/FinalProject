@@ -39,6 +39,7 @@ public class BulletMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy") && collision.gameObject.layer == 14)
         {
+            Destroy(gameObject);
             BodyPartScript bp = collision.gameObject.GetComponent<BodyPartScript>();
 
             //if (!bp.enemy.dead)
@@ -47,27 +48,23 @@ public class BulletMovement : MonoBehaviour
             bp.HidePartAndReplace();
             bp.enemy.Ragdoll();
             Debug.Log("Enemy killed!");
-            Debug.Log(collision.gameObject.name);
-            
-            
+
             collision.gameObject.tag = "Dead";
             collision.gameObject.layer = 13;
             SetLayerRecursively(collision.gameObject, 13);
-            
-            Destroy(gameObject);
-            
+          
             GlobalVar.EnemyNo--;
 
             if (GlobalVar.EnemyNo == 0)
             {
                 GlobalVar.IsWin = true;
             }
-
         }
         
         
         if (collision.gameObject.CompareTag("Player"))
         {
+            Destroy(gameObject);
             Debug.Log("Hit!");
             
             TakeDamage(25);

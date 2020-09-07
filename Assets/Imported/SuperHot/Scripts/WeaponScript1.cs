@@ -88,8 +88,8 @@ public class WeaponScript1 : MonoBehaviour
         if (GetComponentInChildren<ParticleSystem>() != null)
             GetComponentInChildren<ParticleSystem>().Play();
 
-        if(SuperHotScript1.instance.weapon == this)
-            StartCoroutine(Reload());
+        // if(SuperHotScript1.instance.weapon == this)
+        StartCoroutine(Reload());
 
         myCam.transform.DOComplete();
         myCam.transform.DOShakePosition(.2f, .01f, 10, 90, false, true).SetUpdate(true);
@@ -124,8 +124,8 @@ public class WeaponScript1 : MonoBehaviour
 
     IEnumerator Reload()
     {
-        if (SuperHotScript1.instance.weapon != this)
-            yield break;
+        // if (SuperHotScript1.instance.weapon != this)
+        //     yield break;
         // SuperHotScript1.instance.ReloadUI(reloadTime);
         reloading = true;
         yield return new WaitForSeconds(reloadTime);

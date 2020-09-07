@@ -39,6 +39,7 @@ public class BulletMovement1 : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy") && collision.gameObject.layer == 14)
         {
+            Destroy(gameObject);
             BodyPartScript bp = collision.gameObject.GetComponent<BodyPartScript>();
 
             //if (!bp.enemy.dead)
@@ -47,6 +48,7 @@ public class BulletMovement1 : MonoBehaviour
             bp.HidePartAndReplace();
             bp.enemy.Ragdoll();
             Debug.Log("Enemy killed!");
+            Debug.Log(collision.gameObject.name);
             
             collision.gameObject.tag = "Dead";
             collision.gameObject.layer = 13;
