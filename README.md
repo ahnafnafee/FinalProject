@@ -18,3 +18,9 @@ A retro-wave themed game with parkour mechanics. This included Wall Run, High Ju
 
 1. **Skylines | Timecop1983** - https://timecop1983.bandcamp.com/track/skylines
 2. **Alleyways | DrDisrespect** - https://www.youtube.com/watch?v=pphdb0jqvh0
+
+
+
+##### Notes:
+
+> This game was made as the final project (solo) for Drexel CS345
