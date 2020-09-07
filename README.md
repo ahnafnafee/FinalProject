@@ -1,5 +1,5 @@
 # TimeKour
-A retro-wave themed game with parkour mechanics. This included Wall Run, High Jumps and also Grappling. Your objective will be to run across the obstacles and kill all enemies in each level.  Bullets in this world move slowly so it will give you time to dodge and weave while performing some cool stunts to defeat your enemies. 
+A retro-wave themed game with parkour mechanics. This includes Wall Run, High Jumps and also Grappling. Your objective will be to run across the obstacles and kill all enemies in each level.  Bullets in this world move slowly so it will give you time to dodge and weave while performing some cool stunts to defeat your enemies. 
 
 
 
