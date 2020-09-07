@@ -169,20 +169,20 @@ public class WeaponScript1 : MonoBehaviour
         }
         
         // Debug.Log(GlobalVar.EnemyNo);
-        DetectChange(enemyNo);
+        // DetectChange(enemyNo);
         
         healthBar.SetHealth(GlobalVar.currentHealth);
     }
 
-    void DetectChange(int enemyNumber)
-    {
-        if (GlobalVar.EnemyNo != enemyNumber)
-        {
-            enemyNumber = GlobalVar.EnemyNo;
-            Debug.Log($"Global Enemy No: {GlobalVar.EnemyNo}");
-            Debug.Log($"Enemy Number: {enemyNumber}");
-        }
-    }
+    // void DetectChange(int enemyNumber)
+    // {
+    //     if (GlobalVar.EnemyNo != enemyNumber)
+    //     {
+    //         enemyNumber = GlobalVar.EnemyNo;
+    //         // Debug.Log($"Global Enemy No: {GlobalVar.EnemyNo}");
+    //         // Debug.Log($"Enemy Number: {enemyNumber}");
+    //     }
+    // }
 
     public void EnterWinInterface()
     {

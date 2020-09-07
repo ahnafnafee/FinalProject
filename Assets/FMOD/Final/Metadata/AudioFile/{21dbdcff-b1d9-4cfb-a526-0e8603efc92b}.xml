@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{21dbdcff-b1d9-4cfb-a526-0e8603efc92b}">
+		<property name="assetPath">
+			<value>︎ Skylines - Timecop1983.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>302.39346938775509</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{2c278111-eb09-4de1-9099-afec7e12f038}</destination>
+		</relationship>
+	</object>
+</objects>

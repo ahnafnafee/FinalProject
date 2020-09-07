@@ -12942,7 +12942,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionTag: 
-  Event: event:/Master/Timecop1983 - On the Run
+  Event: "event:/Master/\uFE0E Skylines - Timecop1983"
   PlayEvent: 1
   StopEvent: 2
   AllowFadeout: 1
@@ -24373,7 +24373,7 @@ GameObject:
   - component: {fileID: 1762702532}
   m_Layer: 9
   m_Name: Cube (13)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36947,7 +36947,7 @@ GameObject:
   - component: {fileID: 2073622543}
   m_Layer: 9
   m_Name: Cube (12)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37540,7 +37540,7 @@ MonoBehaviour:
   whatIsWall:
     serializedVersion: 2
     m_Bits: 512
-  wallrunForce: 1750
+  wallrunForce: 2000
   maxWallrunTime: 2
   maxWallSpeed: 30
   maxWallRunCameraTilt: 25
