@@ -31,6 +31,11 @@ public class MenuInterface : MonoBehaviour
     {
         SceneManager.LoadSceneAsync("Level 1");
     }
+    
+    public void Quit()
+    {
+        Application.Quit();
+    }
 
     public void EnterSettings()
     {

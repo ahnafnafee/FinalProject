@@ -63,6 +63,12 @@ public class LevelInterface : MonoBehaviour
             GlobalVar.AltInterfaceOpen = false;
         }
     }
+
+    public void ReturnMenu()
+    {
+        GlobalVar.IsPaused = false;
+        SceneManager.LoadSceneAsync(0);
+    }
     
     public void EnterSettings()
     {
