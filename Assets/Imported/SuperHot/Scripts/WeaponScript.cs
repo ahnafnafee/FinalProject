@@ -30,28 +30,9 @@ public class WeaponScript : MonoBehaviour
     [Space] [Header("UI Settings")] 
     public GameObject winInterface;
     public GameObject loseInterface;
-    
-    [Space] [Header("Health")] 
-    public int maxHealth = 50;
-    public int currentHealth;
-
-    public HealthBar healthBar;
-
-    [Space] [Header("Enemy Info")] 
-    public int enemyNo = 1;
-
 
     void Start()
     {
-        GlobalVar.currentHealth = maxHealth;
-        GlobalVar.maxHealth = maxHealth;
-        
-        currentHealth = maxHealth;
-        
-        healthBar.SetMaxHealth(maxHealth);
-        
-        GlobalVar.EnemyNo = enemyNo;
-        
         rb = GetComponent<Rigidbody>();
         collider = GetComponent<Collider>();
         renderer = GetComponent<Renderer>();
@@ -144,76 +125,6 @@ public class WeaponScript : MonoBehaviour
         reloading = true;
         yield return new WaitForSeconds(reloadTime);
         reloading = false;
-    }
-    
-    IEnumerator Halt()
-    {
-        yield return new WaitForSeconds(1.5f);
-        winInterface.SetActive(true);
-        GlobalVar.AltInterfaceOpen = true;
-        Time.timeScale = 0;
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-    }
-    
-    IEnumerator HaltLose()
-    {
-        yield return new WaitForSeconds(0.5f);
-        loseInterface.SetActive(true);
-        Time.timeScale = 0;
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-        GlobalVar.AltInterfaceOpen = true;
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-
-        if (collision.gameObject.CompareTag("Enemy") && collision.relativeVelocity.magnitude < 15)
-        {
-            BodyPartScript bp = collision.gameObject.GetComponent<BodyPartScript>();
-
-            if (!bp.enemy.dead)
-                Instantiate(SuperHotScript1.instance.hitParticlePrefab, transform.position, transform.rotation);
-
-            bp.HidePartAndReplace();
-            bp.enemy.Ragdoll();
-        }
-        
-        // if (collision.gameObject.CompareTag("Player"))
-        // {
-        //     EnterLoseInterface();
-        // }
-
-    }
-
-    void TakeDamage(int damage)
-    {
-        currentHealth -= damage;
-        healthBar.SetHealth(currentHealth);
-    }
-
-    private void Update()
-    {
-        if (GlobalVar.IsWin)
-        {
-            EnterWinInterface();
-        } else if (GlobalVar.IsLoss)
-        {
-            EnterLoseInterface();
-        }
-        
-        healthBar.SetHealth(GlobalVar.currentHealth);
-    }
-
-    public void EnterWinInterface()
-    {
-        StartCoroutine(Halt());
-    }
-
-    public void EnterLoseInterface()
-    {
-        StartCoroutine(HaltLose());
     }
 
 }

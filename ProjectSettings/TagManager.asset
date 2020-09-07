@@ -8,6 +8,7 @@ TagManager:
   - Wall
   - Ground
   - ExplosionBarrel
+  - Dead
   layers:
   - Default
   - TransparentFX
@@ -22,8 +23,8 @@ TagManager:
   - Ground
   - Ladder
   - Orbs
-  - 
-  - 
+  - Dead
+  - Enemy
   - 
   - 
   - 

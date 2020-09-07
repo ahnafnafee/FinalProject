@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BulletMovement : MonoBehaviour
+public class BulletMovement1 : MonoBehaviour
 {
     public float speed;
     Rigidbody rb;
@@ -47,33 +47,16 @@ public class BulletMovement : MonoBehaviour
             bp.HidePartAndReplace();
             bp.enemy.Ragdoll();
             Debug.Log("Enemy killed!");
-            Debug.Log(collision.gameObject.name);
-            
             
             collision.gameObject.tag = "Dead";
             collision.gameObject.layer = 13;
             SetLayerRecursively(collision.gameObject, 13);
-            
-            Destroy(gameObject);
             
             GlobalVar.EnemyNo--;
 
             if (GlobalVar.EnemyNo == 0)
             {
                 GlobalVar.IsWin = true;
-            }
-
-        }
-        
-        
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            Debug.Log("Hit!");
-            
-            TakeDamage(25);
-            if (GlobalVar.currentHealth == 0)
-            {
-                GlobalVar.IsLoss = true;
             }
         }
         
@@ -98,7 +81,6 @@ public class BulletMovement : MonoBehaviour
             SetLayerRecursively(child.gameObject, newLayer);
         }
     }
-
     
     void TakeDamage(int damage)
     {

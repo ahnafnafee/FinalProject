@@ -3224,6 +3224,10 @@ PrefabInstance:
       propertyPath: maxHealth
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 6717544867223576766, guid: 2b98b784042c42640a3edbe4a63f9ac1, type: 3}
+      propertyPath: enemyNo
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b98b784042c42640a3edbe4a63f9ac1, type: 3}
 --- !u!4 &1962299487 stripped
@@ -4450,7 +4454,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   healthBar: {fileID: 522319652}
-  enemyNo: 1
+  enemyNo: 2
 --- !u!65 &5259810200914066334
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13845,6 +13849,10 @@ PrefabInstance:
     - target: {fileID: 6717544867223576766, guid: 2b98b784042c42640a3edbe4a63f9ac1, type: 3}
       propertyPath: maxHealth
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717544867223576766, guid: 2b98b784042c42640a3edbe4a63f9ac1, type: 3}
+      propertyPath: enemyNo
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b98b784042c42640a3edbe4a63f9ac1, type: 3}
