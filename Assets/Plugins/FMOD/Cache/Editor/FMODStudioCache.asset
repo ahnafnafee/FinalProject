@@ -55,7 +55,7 @@ MonoBehaviour:
   Path: event:/Master/Night Drive - Timecop1983
   guid: 313fa8f729c0fe4a85f6078aa53e777a
   Banks:
-  - {fileID: 3721120595739363925}
+  - {fileID: 2086833517230321812}
   IsStream: 1
   Is3D: 1
   IsOneShot: 0
@@ -78,7 +78,7 @@ MonoBehaviour:
   Path: event:/Master/Timecop1983 - On the Run
   guid: b72bad9cb158dd4f8f73179f9aa9e61d
   Banks:
-  - {fileID: 3721120595739363925}
+  - {fileID: 2086833517230321812}
   IsStream: 1
   Is3D: 1
   IsOneShot: 0
@@ -154,7 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: 7492531881894768942}
-  - {fileID: 3721120595739363925}
+  - {fileID: 2086833517230321812}
   EditorEvents:
   - {fileID: 9014787193782820774}
   - {fileID: -1667060118269494712}
@@ -162,10 +162,10 @@ MonoBehaviour:
   - {fileID: 5544435693737242453}
   EditorParameters: []
   MasterBanks:
-  - {fileID: 3721120595739363925}
+  - {fileID: 2086833517230321812}
   StringsBanks:
   - {fileID: 7492531881894768942}
-  stringsBankWriteTime: 637350307017745320
+  stringsBankWriteTime: 637352579710997173
   cacheVersion: 3
 --- !u!114 &643916634052940450
 MonoBehaviour:
@@ -185,6 +185,24 @@ MonoBehaviour:
   LoadResult: 0
   FileSizes: []
   Exists: 0
+--- !u!114 &2086833517230321812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/FMOD/Final/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637352579710977340
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
 --- !u!114 &3721120595739363925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,7 +220,7 @@ MonoBehaviour:
   lastModified: 637350307017710601
   LoadResult: 0
   FileSizes: []
-  Exists: 1
+  Exists: 0
 --- !u!114 &3983002570457945589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,7 +272,7 @@ MonoBehaviour:
   Path: "event:/Master/\uFE0E Skylines - Timecop1983"
   guid: 83f209c46bd92b44a1a475acf53ba65a
   Banks:
-  - {fileID: 3721120595739363925}
+  - {fileID: 2086833517230321812}
   IsStream: 1
   Is3D: 1
   IsOneShot: 0
@@ -294,7 +312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: Assets/FMOD/Final/Build/Desktop/Master.strings.bank
   SubDir: 
-  lastModified: 637350307017745320
+  lastModified: 637352579710997173
   LoadResult: 0
   FileSizes:
   - Name: Desktop
@@ -333,7 +351,7 @@ MonoBehaviour:
   Path: event:/Master/DrDisrespect - Alleyways (INSTRUMENTAL)
   guid: 88f830e62d972b40bcafc31a0113ca7d
   Banks:
-  - {fileID: 3721120595739363925}
+  - {fileID: 2086833517230321812}
   IsStream: 1
   Is3D: 1
   IsOneShot: 0
